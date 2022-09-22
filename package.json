@@ -1,0 +1,20 @@
+{
+  "name": "catnip-blog",
+  "version": "0.0.1",
+  "main": "src/catnip-blog-main.js",
+  "browser": "src/catnip-blog-browser.jsx",
+  "type": "module",
+  "scripts": {
+    "dev": "update-file-deps && catnip dev"
+  },
+  "devDependencies": {
+    "catnip": "file:../catnip",
+    "mysql": "^2.18.1"
+  },
+  "_moduleCopies": {
+    "catnip": "../catnip"
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.9.1"
+  }
+}
