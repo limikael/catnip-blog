@@ -5,7 +5,7 @@ import XMLToReactModule from 'xml-to-react';
 const XMLToReact=XMLToReactModule.default;
 
 function renderXml(content) {
-	let tags=["h1","h2","h3","h4","h5","div","span","b","p","hr","small","br"];
+	let tags=["h1","h2","h3","h4","h5","div","span","b","p","hr","small","br","ul","li"];
 	let options={};
 
 	for (let tag of tags)
