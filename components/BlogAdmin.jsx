@@ -1,6 +1,6 @@
-import {catnip, A, ItemList, setLocation, buildUrl, BsAlert, BsLoader, useForm,
-		useApiFetch, apiFetch, useCounter, useValueChanged, useChannel, PromiseButton, usePromise} from "catnip";
-import {BsInput} from "catnip";
+import {katnip, A, ItemList, setLocation, buildUrl, BsAlert, BsLoader, useForm,
+		useApiFetch, apiFetch, useCounter, useValueChanged, useChannel, PromiseButton, usePromise} from "katnip";
+import {BsInput} from "katnip";
 import {useState, useContext} from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime.js";

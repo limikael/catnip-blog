@@ -1,4 +1,4 @@
-import {useApiFetch, BsLoader, A} from "catnip";
+import {useApiFetch, BsLoader, A} from "katnip";
 import dayjs from "dayjs";
 
 import XMLToReactModule from 'xml-to-react';
@@ -16,8 +16,8 @@ function renderXml(content) {
 
 	options["a"]=(attrs)=>({type: A, props: attrs});
 
-	for (elementName in catnip.elements) {
-		let elementFunc=catnip.elements[elementName];
+	for (elementName in katnip.elements) {
+		let elementFunc=katnip.elements[elementName];
 		options[elementName]=(attrs)=>({type: elementFunc, props: attrs});
 	}
 

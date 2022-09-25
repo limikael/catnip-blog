@@ -1,4 +1,4 @@
-import {catnip, Model, convertToSlug} from "catnip";
+import {katnip, Model, convertToSlug} from "katnip";
 
 export default class Blog extends Model {
 	static tableName="Blog";
@@ -11,8 +11,8 @@ export default class Blog extends Model {
 	};
 }
 
-catnip.addModel(Blog);
-catnip.createCrudApi(Blog,{
+katnip.addModel(Blog);
+katnip.createCrudApi(Blog,{
 	cap: "manage-content",
 	onsave: (item)=>{
 		item.stamp=Date.now()/1000;
@@ -20,8 +20,8 @@ catnip.createCrudApi(Blog,{
 	}
 });
 
-catnip.addApi("/api/getBlogView",async ({query})=>{
-	let blog=await catnip.db.Blog.findOne({
+katnip.addApi("/api/getBlogView",async ({query})=>{
+	let blog=await katnip.db.Blog.findOne({
 		$op: "or",
 		slug: query,
 		id: query
@@ -33,8 +33,8 @@ catnip.addApi("/api/getBlogView",async ({query})=>{
 	return blog;
 })
 
-catnip.addApi("/api/getBlogList",async ({query})=>{
-	let blogs=await catnip.db.Blog.findMany();
+katnip.addApi("/api/getBlogList",async ({query})=>{
+	let blogs=await katnip.db.Blog.findMany();
 
 	if (!blogs)
 		throw new Error("NOT FOUND")

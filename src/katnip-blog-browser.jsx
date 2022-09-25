@@ -1,10 +1,10 @@
-import {catnip} from "catnip";
+import {katnip} from "katnip";
 import FILE_EARMARK_TEXT from "bootstrap-icons/icons/file-earmark-text.svg";
 import BlogAdmin from "../components/BlogAdmin.jsx";
 import BlogView from "../components/BlogView.jsx";
 import BlogList from "../components/BlogList.jsx";
 
-catnip.addAction("getAdminMenu",(items)=>{
+katnip.addAction("getAdminMenu",(items)=>{
 	items.push({
 		title: "Blogs",
 		href: "/admin/blog",
@@ -13,7 +13,7 @@ catnip.addAction("getAdminMenu",(items)=>{
 	});
 });
 
-catnip.addElement("BlogList",BlogList);
+katnip.addElement("BlogList",BlogList);
 
-catnip.addRoute("admin/blog",BlogAdmin);
-catnip.addRoute("blog/*",BlogView);
+katnip.addRoute("admin/blog",BlogAdmin);
+katnip.addRoute("blog/*",BlogView);

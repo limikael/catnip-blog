@@ -1,18 +1,18 @@
 {
-  "name": "catnip-blog",
+  "name": "katnip-blog",
   "version": "0.0.1",
-  "main": "src/catnip-blog-main.js",
-  "browser": "src/catnip-blog-browser.jsx",
+  "main": "src/katnip-blog-main.js",
+  "browser": "src/katnip-blog-browser.jsx",
   "type": "module",
   "scripts": {
-    "dev": "update-file-deps && catnip dev"
+    "dev": "update-file-deps && katnip dev"
   },
   "devDependencies": {
-    "catnip": "file:../catnip",
+    "katnip": "^0.0.1",
     "mysql": "^2.18.1"
   },
   "_moduleCopies": {
-    "catnip": "../catnip"
+    "katnip": "../katnip"
   },
   "dependencies": {
     "bootstrap-icons": "^1.9.1"

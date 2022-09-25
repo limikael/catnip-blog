@@ -1,4 +1,4 @@
-import {catnip, A, ItemList, setLocation, buildUrl, useApiFetch, apiFetch} from "catnip";
+import {katnip, A, ItemList, setLocation, buildUrl, useApiFetch, apiFetch} from "katnip";
 import {useState, useContext} from "react";
 import XMLToReactModule from 'xml-to-react';
 
@@ -15,8 +15,8 @@ function renderXml(content) {
 
 	options["a"]=(attrs)=>({type: A, props: attrs});
 
-	for (elementName in catnip.elements) {
-		let elementFunc=catnip.elements[elementName];
+	for (elementName in katnip.elements) {
+		let elementFunc=katnip.elements[elementName];
 		options[elementName]=(attrs)=>({type: elementFunc, props: attrs});
 	}
 
@@ -25,7 +25,7 @@ function renderXml(content) {
 }
 
 export default function BlogView({request}) {
-	let tc=catnip.useTemplateContext();
+	let tc=katnip.useTemplateContext();
 	let blogQuery=request.pathargs[1];
 	let blog=useApiFetch("/api/getBlogView",{query: blogQuery},[blogQuery]);
 
