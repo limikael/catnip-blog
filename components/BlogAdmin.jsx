@@ -1,5 +1,6 @@
 import {katnip, A, ItemList, setLocation, buildUrl, BsAlert, BsLoader, useForm,
 		useApiFetch, apiFetch, useCounter, useValueChanged, useChannel, PromiseButton, usePromise} from "katnip";
+import ContentEditor from "katnip/default_plugins/katnip-pages/components/ContentEditor.jsx";
 import {BsInput} from "katnip";
 import {useState, useContext} from "react";
 import dayjs from "dayjs";
@@ -7,60 +8,61 @@ import relativeTime from "dayjs/plugin/relativeTime.js";
 
 dayjs.extend(relativeTime);
 
+function BlogProperties({form}) {
+	let blog=form.getCurrent();
+
+	let url;
+	if (blog.slug)
+		url=window.location.origin+"/blog/"+blog.slug;
+
+	let urlStyle={
+		"white-space": "nowrap",
+		"overflow": "hidden",
+		"text-overflow": "ellipsis",
+		display: "block",
+		direction: "rtl"
+	};
+
+	return <>
+		<div class="mb-3"><b>Document</b></div>
+		<div class="form-group mb-3">
+			<label class="form-label mb-1">Title</label>
+			<BsInput {...form.field("title")} />
+		</div>
+		{url &&
+			<div class="form-group mb-3">
+				<label class="form-label mb-0">Permalink</label>
+				<A style={urlStyle} href={url}>{url}</A>
+			</div>
+		}
+	</>;
+}
+
+
 function BlogEdit({request}) {
-	let [message, setMessage]=useState();
-	let form=useForm({
-		initial: async ()=>{
-			if (!request.query.id)
-				return {};
+	async function read() {
+		let data={content: "", title: "New Blog Entry"};
 
-			return await apiFetch("/api/blog/get",{id: request.query.id});
-		},
-		deps: [request.query.id]
-	});
+		if (request.query.id)
+			data=await apiFetch("/api/blog/get",{id: request.query.id});
 
-	async function write() {
-		setMessage();
-		try {
-			let saved=await apiFetch("/api/blog/save",form.getCurrent());
-			setLocation(buildUrl("/admin/blog",{id: saved.id}));
-			form.setCurrent(saved);
-			setMessage("Saved...");
-		}
-
-		catch (e) {
-			setMessage(e);
-		}
+		return data;
 	}
 
-	function BlogLink({blog}) {
-		if (!blog.slug)
-			return;
-
-		let url=window.location.origin+"/blog/"+blog.slug;
-		return (
-			<div class="form-text mt-1">
-				<b>Permalink:</b> <A href={url}>{url}</A>
-			</div>
-		);
+	async function write(data) {
+		let saved=await apiFetch("/api/blog/save",data);
+		setLocation(buildUrl("/admin/blog",{id: saved.id}));
+		return saved;
 	}
 
-	return (<>
-		<h1 class="mb-3">{request.query.id?"Edit Blog Entry":"Add New Blog Entry"}</h1>
-		<BsAlert message={message} ondismiss={setMessage}/>
-		<BsLoader resource={form.getCurrent()}>
-			<div class="container-fluid border rounded p-3 bg-light">
-				<div class="mb-3">
-					<BsInput {...form.field("title")} placeholder="Blog Title"/>
-					<BlogLink blog={form.getCurrent()}/>
-				</div>
-				<BsInput class="font-monospace mb-3" rows={10} type="textarea" {...form.field("content")} />
-				<PromiseButton class="btn btn-primary" onclick={write}>
-					{request.query.id?"Update Blog Entry":"Create New Blog Entry"}
-				</PromiseButton>
-			</div>
-		</BsLoader>
-	</>);
+	return (
+		<ContentEditor
+				saveLabel={request.query.id?"Update Blog Entry":"Create New Blog Entry"}
+				metaEditor={BlogProperties} 
+				read={read}
+				write={write}
+				deps={[request.query.id]}/>
+	);
 }
 
 function BlogAdminList({request}) {

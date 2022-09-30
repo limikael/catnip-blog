@@ -8,7 +8,7 @@
     "dev": "update-file-deps && katnip dev"
   },
   "devDependencies": {
-    "katnip": "^0.0.1",
+    "katnip": "https://github.com/limikael/katnip/tarball/10d05d5d2dc9a73c2266bb93e99db6fb22f4d9f8",
     "mysql": "^2.18.1"
   },
   "_moduleCopies": {
