@@ -35,7 +35,7 @@ export default function BlogView({request}) {
 	if (blog instanceof Error)
 		return <div class="mt-5"><BsAlert message={blog}/></div>;
 
-	tc.setTitle(blog.title);
+	tc.set({title: blog.title});
 
 	return renderXml(blog.content);
 }
