@@ -41,7 +41,7 @@ function BlogProperties({form}) {
 
 function BlogEdit({request}) {
 	async function read() {
-		let data={content: "", title: "New Blog Entry"};
+		let data={content: [], title: "New Blog Entry"};
 
 		if (request.query.id)
 			data=await apiFetch("/api/blog/get",{id: request.query.id});

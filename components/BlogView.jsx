@@ -1,28 +1,5 @@
-import {katnip, A, ItemList, setLocation, buildUrl, useApiFetch, apiFetch} from "katnip";
+import {katnip, A, ItemList, setLocation, buildUrl, useApiFetch, apiFetch, renderElementContent} from "katnip";
 import {useState, useContext} from "react";
-import XMLToReactModule from 'xml-to-react';
-
-const XMLToReact=XMLToReactModule.default;
-
-function renderXml(content) {
-	let tags=["h1","h2","h3","h4","h5","div","span","b","p","hr","small","br","ul","li"];
-	let options={};
-
-	for (let tag of tags)
-		options[tag]=(attrs)=>({type: tag, props: attrs});
-
-	options["Fragment"]=(attrs)=>({type: Fragment, props: attrs});
-
-	options["a"]=(attrs)=>({type: A, props: attrs});
-
-	for (elementName in katnip.elements) {
-		let elementFunc=katnip.elements[elementName];
-		options[elementName]=(attrs)=>({type: elementFunc, props: attrs});
-	}
-
-	const xmlToReact=new XMLToReact(options);
-	return xmlToReact.convert(`<Fragment>${content}</Fragment>`);
-}
 
 export default function BlogView({request}) {
 	let tc=katnip.useTemplateContext();
@@ -37,5 +14,5 @@ export default function BlogView({request}) {
 
 	tc.set({title: blog.title});
 
-	return renderXml(blog.content);
+	return renderElementContent(blog.content);
 }

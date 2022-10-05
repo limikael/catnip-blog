@@ -1,32 +1,15 @@
-import {useApiFetch, BsLoader, A} from "katnip";
+import {useApiFetch, BsLoader, A, renderElementContent} from "katnip";
 import dayjs from "dayjs";
 
-import XMLToReactModule from 'xml-to-react';
-
-const XMLToReact=XMLToReactModule.default;
-
-function renderXml(content) {
-	let tags=["h1","h2","h3","h4","h5","div","span","b","p","hr","small","br"];
-	let options={};
-
-	for (let tag of tags)
-		options[tag]=(attrs)=>({type: "span", props: attrs});
-
-	options["Fragment"]=(attrs)=>({type: Fragment, props: attrs});
-
-	options["a"]=(attrs)=>({type: A, props: attrs});
-
-	for (elementName in katnip.elements) {
-		let elementFunc=katnip.elements[elementName];
-		options[elementName]=(attrs)=>({type: elementFunc, props: attrs});
-	}
-
-	const xmlToReact=new XMLToReact(options);
-	return xmlToReact.convert(`<Fragment>${content}</Fragment>`);
-}
-
-export default function BlogList({...props}) {
+export default function BlogList({renderMode}) {
 	let blogList=useApiFetch("/api/getBlogList");
+
+	function onClick(ev) {
+		if (renderMode=="editor") {
+			ev.preventDefault();
+			return false;
+		}
+	}
 
 	let blogListContent=[];
 	if (Array.isArray(blogList)) {
@@ -41,9 +24,9 @@ export default function BlogList({...props}) {
 							<h4 class="card-title">{blog.title}</h4>
 							<p class="card-text"
 									style="max-height: 3em; overflow: hidden; text-overflow: ellipsis;">
-								{renderXml(blog.content)}
+								{renderElementContent(blog.content)}
 							</p>
-							<A href={url} class="btn btn-primary stretched-link">More...</A>
+							<A href={url} class="btn btn-primary stretched-link" onclick={onClick}>More...</A>
 						</div>
 					</div>
 				</div>
@@ -52,10 +35,12 @@ export default function BlogList({...props}) {
 	}
 
 	return (
-		<BsLoader resource={blogList}>
-			<div class="row my-3">
-				{blogListContent}
-			</div>
-		</BsLoader>
+		<div class="component">
+			<BsLoader resource={blogList}>
+				<div class="row my-3">
+					{blogListContent}
+				</div>
+			</BsLoader>
+		</div>
 	);
 }
