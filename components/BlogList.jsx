@@ -1,7 +1,7 @@
-import {useApiFetch, BsLoader, A, renderElementContent} from "katnip";
+import {useApiFetch, BsLoader, A, renderFragment} from "katnip";
 import dayjs from "dayjs";
 
-export default function BlogList({renderMode}) {
+export default function BlogList({renderMode, outer, inner}) {
 	let blogList=useApiFetch("/api/getBlogList");
 
 	function onClick(ev) {
@@ -24,7 +24,8 @@ export default function BlogList({renderMode}) {
 							<h4 class="card-title">{blog.title}</h4>
 							<p class="card-text"
 									style="max-height: 3em; overflow: hidden; text-overflow: ellipsis;">
-								{renderElementContent(blog.content)}
+								hello...
+								{renderFragment(blog.content)}
 							</p>
 							<A href={url} class="btn btn-primary stretched-link" onclick={onClick}>More...</A>
 						</div>
@@ -35,7 +36,7 @@ export default function BlogList({renderMode}) {
 	}
 
 	return (
-		<div class="component">
+		<div {...outer}>
 			<BsLoader resource={blogList}>
 				<div class="row my-3">
 					{blogListContent}

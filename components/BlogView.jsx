@@ -1,8 +1,8 @@
-import {katnip, A, ItemList, setLocation, buildUrl, useApiFetch, apiFetch, renderElementContent} from "katnip";
+import {useTemplateContext, useApiFetch, renderFragment} from "katnip";
 import {useState, useContext} from "react";
 
 export default function BlogView({request}) {
-	let tc=katnip.useTemplateContext();
+	let tc=useTemplateContext();
 	let blogQuery=request.pathargs[1];
 	let blog=useApiFetch("/api/getBlogView",{query: blogQuery},[blogQuery]);
 
@@ -14,5 +14,5 @@ export default function BlogView({request}) {
 
 	tc.set({title: blog.title});
 
-	return renderElementContent(blog.content);
+	return renderFragment(blog.content);
 }
