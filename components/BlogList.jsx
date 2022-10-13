@@ -24,7 +24,6 @@ export default function BlogList({renderMode, outer, inner}) {
 							<h4 class="card-title">{blog.title}</h4>
 							<p class="card-text"
 									style="max-height: 3em; overflow: hidden; text-overflow: ellipsis;">
-								hello...
 								{renderFragment(blog.content)}
 							</p>
 							<A href={url} class="btn btn-primary stretched-link" onclick={onClick}>More...</A>
