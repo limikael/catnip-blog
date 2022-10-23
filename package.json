@@ -1,14 +1,14 @@
 {
   "name": "katnip-blog",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "src/katnip-blog-main.js",
   "browser": "src/katnip-blog-browser.jsx",
   "type": "module",
   "scripts": {
-    "dev": "katnip start"
+    "start": "katnip start"
   },
   "devDependencies": {
-    "katnip": "https://github.com/limikael/katnip/tarball/48ed2d9",
+    "katnip": "^0.0.16",
     "mysql": "^2.18.1",
     "sqlite3": "^5.1.2"
   },

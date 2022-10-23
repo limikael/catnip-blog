@@ -10,6 +10,7 @@ dayjs.extend(relativeTime);
 
 function BlogProperties({form}) {
 	let blog=form.getCurrent();
+	const [startDate, setStartDate] = useState(new Date());
 
 	let url;
 	if (blog.slug)
@@ -35,21 +36,29 @@ function BlogProperties({form}) {
 				<A style={urlStyle} href={url}>{url}</A>
 			</div>
 		}
+		<div class="form-group mb-3">
+			<label class="form-label mb-1">Publication Date</label>
+			<BsInput type="date" {...form.field("day")}/>
+		</div>
 	</>;
 }
 
 
 function BlogEdit({request}) {
 	async function read() {
-		let data={content: [], title: "New Blog Entry"};
+		let data={content: [], title: "New Blog Entry", day: dayjs().format("YYYY-MM-DD")};
 
-		if (request.query.id)
+		if (request.query.id) {
 			data=await apiFetch("/api/blog/get",{id: request.query.id});
+			data.day=dayjs.unix(data.stamp).format("YYYY-MM-DD");
+		}
 
 		return data;
 	}
 
 	async function write(data) {
+		data.stamp=dayjs(data.day).unix();
+
 		let saved=await apiFetch("/api/blog/save",data);
 		setLocation(buildUrl("/admin/blog",{id: saved.id}));
 		return saved;

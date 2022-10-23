@@ -1,7 +1,7 @@
 import {useApiFetch, BsLoader, A, renderFragment} from "katnip";
 import dayjs from "dayjs";
 
-export default function BlogList({renderMode, outer, inner}) {
+export default function BlogList({renderMode, outer, inner, num}) {
 	let blogList=useApiFetch("/api/getBlogList");
 
 	function onClick(ev) {
@@ -11,9 +11,16 @@ export default function BlogList({renderMode, outer, inner}) {
 		}
 	}
 
+	num=Number(num);
+
 	let blogListContent=[];
 	if (Array.isArray(blogList)) {
-		for (let blog of blogList) {
+		let numBlogs=blogList.length;
+		if (num && numBlogs>num)
+			numBlogs=num;
+
+		for (let i=0; i<numBlogs; i++) {
+			blog=blogList[i];
 			let url=window.location.origin+"/blog/"+blog.slug;
 
 			blogListContent.push(
@@ -43,4 +50,8 @@ export default function BlogList({renderMode, outer, inner}) {
 			</BsLoader>
 		</div>
 	);
+}
+
+BlogList.controls={
+	num: {title: "Number of entries"}
 }

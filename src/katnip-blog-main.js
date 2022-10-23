@@ -15,7 +15,9 @@ katnip.addModel(Blog);
 katnip.createCrudApi(Blog,{
 	cap: "manage-content",
 	onsave: (item)=>{
-		item.stamp=Date.now()/1000;
+		if (!item.stamp)
+			item.stamp=Date.now()/1000;
+
 		item.slug=convertToSlug(item.title);
 	}
 });
@@ -34,7 +36,9 @@ katnip.addApi("/api/getBlogView",async ({query})=>{
 })
 
 katnip.addApi("/api/getBlogList",async ({query})=>{
-	let blogs=await katnip.db.Blog.findMany();
+	let blogs=await katnip.db.Blog.findMany({
+		$order: "stamp desc"
+	});
 
 	if (!blogs)
 		throw new Error("NOT FOUND")
