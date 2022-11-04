@@ -5,7 +5,8 @@
   "browser": "src/katnip-blog-browser.jsx",
   "type": "module",
   "scripts": {
-    "start": "katnip start"
+    "start": "katnip start",
+    "dev": "copy-file-deps && katnip start"
   },
   "devDependencies": {
     "katnip": "^0.0.16",

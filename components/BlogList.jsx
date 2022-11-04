@@ -20,8 +20,8 @@ export default function BlogList({renderMode, outer, inner, num}) {
 			numBlogs=num;
 
 		for (let i=0; i<numBlogs; i++) {
-			blog=blogList[i];
-			let url=window.location.origin+"/blog/"+blog.slug;
+			let blog=blogList[i];
+			let url="/blog/"+blog.slug;
 
 			blogListContent.push(
 				<div class="col-12 col-md-6">
