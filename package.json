@@ -1,6 +1,6 @@
 {
   "name": "katnip-blog",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "src/katnip-blog-main.js",
   "browser": "src/katnip-blog-browser.jsx",
   "type": "module",
