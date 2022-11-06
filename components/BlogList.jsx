@@ -31,7 +31,7 @@ export default function BlogList({renderMode, outer, inner, num}) {
 							<h4 class="card-title">{blog.title}</h4>
 							<p class="card-text"
 									style="max-height: 3em; overflow: hidden; text-overflow: ellipsis;">
-								{renderFragment(blog.content)}
+								{blog.excerpt}
 							</p>
 							<A href={url} class="btn btn-primary stretched-link" onclick={onClick}>More...</A>
 						</div>

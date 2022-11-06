@@ -1,4 +1,4 @@
-import {katnip, Model, convertToSlug} from "katnip";
+import {katnip, Model, convertToSlug, renderContentExcerpt} from "katnip";
 
 export default class Blog extends Model {
 	static tableName="Blog";
@@ -42,6 +42,9 @@ katnip.addApi("/api/getBlogList",async ({query})=>{
 
 	if (!blogs)
 		throw new Error("NOT FOUND")
+
+	for (let blog of blogs)
+		blog.excerpt=renderContentExcerpt(blog.content,200);
 
 	return blogs;
 })
