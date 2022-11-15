@@ -10,11 +10,16 @@ dayjs.extend(relativeTime);
 
 function BlogProperties({form}) {
 	let blog=form.getCurrent();
-	const [startDate, setStartDate] = useState(new Date());
 
 	let url;
 	if (blog.slug)
 		url=window.location.origin+"/blog/"+blog.slug;
+
+	if (url && blog.status=="draft")
+		url=buildUrl(url,{code: blog.draftCode});
+
+	console.log(blog);
+	console.log(url);
 
 	let urlStyle={
 		"white-space": "nowrap",
@@ -29,6 +34,11 @@ function BlogProperties({form}) {
 		<div class="form-group mb-3">
 			<label class="form-label mb-1">Title</label>
 			<BsInput {...form.field("title")} />
+		</div>
+		<div class="form-group mb-3">
+			<label class="form-label mb-1">Status</label>
+			<BsInput type="select" {...form.field("status")}
+					options={{"": "Published", "draft":"Draft"}}/>
 		</div>
 		{url &&
 			<div class="form-group mb-3">
@@ -81,7 +91,8 @@ function BlogAdminList({request}) {
 
 	let columns={
 		title: {label: "Title"},
-		stamp: {label: "Date", cb: formatStamp}
+		stamp: {label: "Date", cb: formatStamp},
+		status: {label: "Status"}
 	};
 
 	async function getBlogs() {
