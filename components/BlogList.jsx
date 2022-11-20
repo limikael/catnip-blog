@@ -1,4 +1,4 @@
-import {useApiFetch, BsLoader, A, renderFragment} from "katnip";
+import {useApiFetch, bsLoader, A, renderFragment} from "katnip";
 import dayjs from "dayjs";
 
 export default function BlogList({renderMode, outer, inner, num}) {
@@ -43,11 +43,11 @@ export default function BlogList({renderMode, outer, inner, num}) {
 
 	return (
 		<div {...outer}>
-			<BsLoader resource={blogList}>
+			{bsLoader(blogList,()=><>
 				<div class="row my-3">
 					{blogListContent}
 				</div>
-			</BsLoader>
+			</>)}
 		</div>
 	);
 }
