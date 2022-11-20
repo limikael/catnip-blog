@@ -1,6 +1,6 @@
 {
   "name": "katnip-blog",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Add a blog to your Katnip site",
   "main": "src/katnip-blog-main.js",
   "browser": "src/katnip-blog-browser.jsx",
