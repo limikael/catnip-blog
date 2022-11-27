@@ -18,8 +18,8 @@ function BlogProperties({form}) {
 	if (url && blog.status=="draft")
 		url=buildUrl(url,{code: blog.draftCode});
 
-	console.log(blog);
-	console.log(url);
+	/*console.log(blog);
+	console.log(url);*/
 
 	let urlStyle={
 		"white-space": "nowrap",
