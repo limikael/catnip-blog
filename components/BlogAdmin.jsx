@@ -1,6 +1,6 @@
 import {katnip, A, ItemList, setLocation, buildUrl, BsAlert, BsLoader, useForm,
 		useApiFetch, apiFetch, useCounter, useValueChanged, useChannel, PromiseButton, usePromise} from "katnip";
-import ContentEditor from "katnip/default_plugins/katnip-pages/components/ContentEditor.jsx";
+import ContentEditor from "katnip/packages/katnip-pages/components/ContentEditor.jsx";
 import {BsInput} from "katnip";
 import {useState, useContext} from "react";
 import dayjs from "dayjs";
